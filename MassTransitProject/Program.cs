@@ -12,9 +12,7 @@ builder.Services.AddSwaggerGen();
 var bus = Bus.Factory.CreateUsingRabbitMq( config => { 
     config.Host("amqp://guest:guest@localhost:5672");
     config.ReceiveEndpoint("temp-queue", c=> { 
-        c.Handler<Order>(ctx => { 
-            return Console.Out.WriteLineAsync(ctx.Message.Name);
-            });
+        c.Handler<Order>(ctx => Console.Out.WriteLineAsync(ctx.Message.Name));
         });
     });
 
