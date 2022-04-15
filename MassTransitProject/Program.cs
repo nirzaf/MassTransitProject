@@ -1,5 +1,6 @@
 using MassTransit;
 using MassTransitProject;
+using static System.Console;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,7 @@ builder.Services.AddSwaggerGen();
 var bus = Bus.Factory.CreateUsingRabbitMq( config => { 
     config.Host("amqp://guest:guest@localhost:5672");
     config.ReceiveEndpoint("temp-queue", c=> { 
-        c.Handler<Order>(ctx => Console.Out.WriteLineAsync(ctx.Message.Name));
+        c.Handler<Order>(ctx => Out.WriteLineAsync(ctx.Message.Name));
         });
     });
 
